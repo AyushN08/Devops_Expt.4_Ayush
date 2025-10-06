@@ -4,7 +4,7 @@ pipeline {
     environment {
         VENV_DIR = "venv"
         REPORT_DIR = "reports"
-        PYTHON = "python3"
+        PYTHON_EXE = "python"  // or full path if Python not on PATH
     }
 
     stages {
@@ -16,24 +16,19 @@ pipeline {
 
         stage('Setup Python Environment') {
             steps {
-                bat '''
-                    set -e
-                    ${PYTHON} -m venv ${VENV_DIR}
-                    . ${VENV_DIR}/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
+                bat """
+                    %PYTHON_EXE% -m venv %VENV_DIR%
+                    %VENV_DIR%\\Scripts\\python.exe -m pip install --upgrade pip
+                    %VENV_DIR%\\Scripts\\python.exe -m pip install -r requirements.txt
+                """
             }
         }
 
         stage('Run Selenium Tests') {
             steps {
-                bat '''
-                    set -e
-                    . ${VENV_DIR}/bin/activate
-                    mkdir -p ${REPORT_DIR}
-                    pytest --junitxml=${REPORT_DIR}/junit.xml --cov=./ --cov-report=xml:${REPORT_DIR}/coverage.xml
-                '''
+                bat """
+                    %VENV_DIR%\\Scripts\\python.exe -m pytest --junitxml=%REPORT_DIR%\\junit.xml --cov=./ --cov-report=xml:%REPORT_DIR%\\coverage.xml
+                """
             }
         }
     }
