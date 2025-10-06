@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="15.141" timestamp="2025-10-06T12:06:59.184987+05:30" hostname="LAPTOP-Q7L40PBO"><testcase classname="tests.test_google" name="test_google_title" time="15.111" /></testsuite></testsuites>
