@@ -16,7 +16,7 @@ pipeline {
 
         stage('Setup Python Environment') {
             steps {
-                sh '''
+                bat '''
                     set -e
                     ${PYTHON} -m venv ${VENV_DIR}
                     . ${VENV_DIR}/bin/activate
@@ -28,7 +28,7 @@ pipeline {
 
         stage('Run Selenium Tests') {
             steps {
-                sh '''
+                bat '''
                     set -e
                     . ${VENV_DIR}/bin/activate
                     mkdir -p ${REPORT_DIR}
